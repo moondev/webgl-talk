@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Sample Three.js</title>
+		<style>
+			#container {
+				background: #000;
+				width: 800px;
+				height: 600px;
+			}
+		</style>
+	</head>
+	<body>
+		<a id="genlink" href="#">ADD SPHERE</a>
+		<div id="container">
+			
+			
+		</div>
+		
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script src="../demo3/js/Three.js"></script>
+	<script src="sugar.js"></script>
+	
+	<script type="text/javascript">
+
+	// set the scene size
+	var WIDTH = 800, HEIGHT = 600;
+	
+	var mouseX = 0;
+	var mouseY = 0;
+	
+	var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+	
+	// set some camera attributes
+	var VIEW_ANGLE = 45,ASPECT = WIDTH / HEIGHT,NEAR = 0.1,FAR = 10000;
+	
+	// get the DOM element to attach to
+	var $container = $('#container');
+	
+	// create a WebGL renderer, camera, and scene
+	var renderer = new THREE.WebGLRenderer();
+	var camera = new THREE.Camera(VIEW_ANGLE,ASPECT,NEAR,FAR);
+	var scene = new THREE.Scene();
+	
+	camera.position.z = 1200;
+	
+	// start the renderer
+	renderer.setSize(WIDTH, HEIGHT);
+	
+	// attach the render-supplied DOM element
+	$container.append(renderer.domElement);
+	
+	for(i=1;i<10;i++){
+	var radius = 90, segments = 32, rings = 32;
+	
+
+	var sphereMaterial = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff});
+	
+	var sphere = new THREE.Mesh(new THREE.Sphere(80, segments, rings),sphereMaterial);
+	
+	
+	sphere.position.x = Math.random() * 800 - 400;
+					sphere.position.y = Number.random(-500,500);
+					sphere.position.x = Number.random(-500,500);
+	
+	scene.addChild(sphere);
+					
+					
+	}
+	
+
+	// create a point light
+	var pointLight = new THREE.PointLight( 0xffffff );
+	
+	// set its position
+	pointLight.position.x = 10;
+	pointLight.position.y = 50;
+	pointLight.position.z = 800;
+	
+	// add to the scene
+	scene.addLight(pointLight);
+	
+	// draw!
+	renderer.render(scene, camera);
+	
+	
+	function addsphere(){
+	
+
+	var newsphere = new THREE.Mesh(new THREE.Sphere(80, 32, 32),new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff}));
+	
+	newsphere.position.x = Math.random() * 800 - 400;
+	newsphere.position.y = Number.random(-500,500);
+	newsphere.position.x = Number.random(-500,500);
+					
+	
+	scene.addChild(newsphere);
+	
+	
+	
+	renderer.render(scene,camera);
+	
+	
+	
+	
+	
+	//alert('add');
+	}
+	
+	function animate() {
+
+				//requestAnimationFrame( animate );
+
+				render();
+				
+
+			}
+
+	
+	$(document).ready(function(){
+	
+	$("#genlink").click(function(){
+	
+	addsphere();
+	
+	return false;
+	
+	});
+	
+	});
+	
+	</script>
+</html>
